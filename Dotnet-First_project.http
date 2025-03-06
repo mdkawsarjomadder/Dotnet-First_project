@@ -1,6 +1,15 @@
-@Dotnet_First_project_HostAddress = http://localhost:5185
 
-GET {{Dotnet_First_project_HostAddress}}/weatherforecast/
-Accept: application/json
+GET  http://localhost:5185/hello
 
 ###
+
+POST  http://localhost:5185/hello
+###
+
+PUT  http://localhost:5185/hello
+###
+
+DELETE http://localhost:5185/hello
+###
+
+DELETE http://localhost:5185/hello
