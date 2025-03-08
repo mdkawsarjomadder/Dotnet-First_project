@@ -11,5 +11,3 @@ PUT  http://localhost:5185/hello
 
 DELETE http://localhost:5185/hello
 ###
-
-DELETE http://localhost:5185/hello
