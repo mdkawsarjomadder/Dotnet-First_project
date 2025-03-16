@@ -1,13 +1,17 @@
 
-GET  http://localhost:5185/hello
+GET  http://localhost:5185/
+
+###
+GET  http://localhost:5185/api/categories
 
 ###
 
-POST  http://localhost:5185/hello
+POST  http://localhost:5185/api/categories
 ###
 
-PUT  http://localhost:5185/hello
+PUT  http://localhost:5185/api/categories
 ###
 
-DELETE http://localhost:5185/hello
+DELETE http://localhost:5185/api/categories
 ###
+
