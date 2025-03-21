@@ -35,6 +35,9 @@ app.MapGet("/api/categories",([FromQuery]string searchProducts = "") =>
   {
     //Console.WriteLine($"{CategoryData}");
     
+    if(string.IsNullOrEmpty(CategoryData.Name)){
+      return Results.BadRequest("Category Name is required and can not be empty.!");
+    }
     var NewCategory = new Category{
         //CategoryId = Guid.Parse("Cf566f82-e4ae-4b95-b939-b29a0033db35"),
         CategoryId = Guid.NewGuid(),
@@ -47,7 +50,7 @@ app.MapGet("/api/categories",([FromQuery]string searchProducts = "") =>
     });
 
     //Delete /api/categories => Delete a Category
-  app.MapDelete("/api/categories/{IdCategory}",(Guid IdCategory) =>
+  app.MapDelete("/api/categories/{IdCategory:guid}",(Guid IdCategory ) =>
       {
         var foundCategory = categories.FirstOrDefault(category => category.CategoryId == IdCategory);
          if(foundCategory == null){
@@ -57,18 +60,29 @@ app.MapGet("/api/categories",([FromQuery]string searchProducts = "") =>
       return Results.NoContent();
       });
     //Update /api/categories => Update a Category
-  app.MapPut("/api/categories/{IdCategory}",(Guid IdCategory, [FromBody] Category CategoryData) =>
+  app.MapPut("/api/categories/{IdCategory:guid}",(Guid IdCategory, [FromBody] Category CategoryData) =>
       {
         var foundCategory = categories.FirstOrDefault(category => category.CategoryId == IdCategory);
          if(foundCategory == null){
           return Results.NotFound("Category with this id dosenot not exist");
          }
-         foundCategory.Name = CategoryData.Name;
-         foundCategory.Description = CategoryData.Description;
+         if(CategoryData == null){
+          return Results.BadRequest("Category is Data in Missing...!");
+         }
+         /*foundCategory.Name = CategoryData.Name ?? foundCategory.Name;
+         foundCategory.Description = CategoryData.Description ?? foundCategory.Description;*/
+        if(!string.IsNullOrEmpty(CategoryData.Name)){
+          if(foundCategory.Name.Length >= 2){
+              foundCategory.Name = CategoryData.Name;
+          }else{
+            return Results.BadRequest("Categriy bane must be atleast 2 Cgaracters in long");
+           }
+          }
+        if(!string.IsNullOrWhiteSpace(CategoryData.Description)){
+          foundCategory.Description = CategoryData.Description;
+          }
         return Results.NoContent();
       });
-
-
 app.Run();
 
 
@@ -76,7 +90,7 @@ public record Category
 {
   public Guid CategoryId { get; set;}
   public string Name {get; set;}
-  public string? Description {get; set;}
+  public string Description {get; set;} = string.Empty;
   public DateTime CreatedAt {get; set;}
 };
 
