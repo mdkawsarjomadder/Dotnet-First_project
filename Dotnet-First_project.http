@@ -2,16 +2,18 @@
 GET  http://localhost:5185/
 
 ###
-GET  http://localhost:5185/api/categories?searchProducts=jomadder
-
+GET  http://localhost:5185/api/categories
 ###
+# GET  http://localhost:5185/api/categories?searchProducts=Nusrat
+# ###
 
 POST  http://localhost:5185/api/categories
 Content-Type: application/json
 
 {
-"name":"jomadder and kawsar",
-"description":"My Kawsar Project in Dotnet Core!"
+"name":"kawsar",
+"description":" Bad Categiry"
+
 }
 # {
 # "name":"Md.Kawsar",
@@ -21,15 +23,15 @@ Content-Type: application/json
 
 
 
-PUT  http://localhost:5185/api/categories/806978b1-aa4a-42a7-9a3f-0d7056e2ebdc
+PUT  http://localhost:5185/api/categories/9f661f08-8567-4b23-8301-e3d9556366a1
 Content-Type: application/json
 
 {
-"name":"Kuddus",
-"description":"My bing brothers !"
+"name":"Ug",
+"description":""
 }
 ###
 
-DELETE http://localhost:5185/api/categories/38fcc6ec-3417-42b8-986e-060a83b62261
+DELETE http://localhost:5185/api/categories/5fbbc70b-8f69-4c1c-aca6-a0253ffdd7e7
 ###
 
