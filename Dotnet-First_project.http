@@ -11,24 +11,17 @@ POST  http://localhost:5185/api/categories
 Content-Type: application/json
 
 {
-"name":"kawsar",
-"description":" Bad Categiry"
-
+"name":"Tuba",
+"description":" Good Human"
 }
-# {
-# "name":"Md.Kawsar",
-# "description":"My First Project in Dotnet Core!"
-# }
 ###
 
-
-
-PUT  http://localhost:5185/api/categories/9f661f08-8567-4b23-8301-e3d9556366a1
+PUT  http://localhost:5185/api/categories/214066e8-0407-44c4-a00e-35aac8b3fc0d
 Content-Type: application/json
 
 {
-"name":"Ug",
-"description":""
+"name":"Jhakir",
+"description":"is man is normal"
 }
 ###
 
