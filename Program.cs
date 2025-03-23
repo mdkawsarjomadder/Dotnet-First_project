@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//add services to the contralller..............
+builder.Services.AddControllers();  //step number one.............
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -15,13 +17,13 @@ app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
 
-List<Category> categories = new List<Category>();
 app.MapGet("/", () =>"API single Method");
-
-//GET /api/categories => read Category
-app.MapGet("/api/categories",([FromQuery]string searchProducts = "") =>
+app.MapControllers();
+app.Run();
+/*//GET /api/categories => read Category
+  app.MapGet("/api/categories",() =>
     {
-      //Console.WriteLine($"{searchProducts}");
+    //Console.WriteLine($"{searchProducts}");
       if( !String.IsNullOrEmpty(searchProducts)){
               Console.WriteLine($"{searchProducts}");
       var searchCategories = categories.Where( c => c.Name.Contains(searchProducts, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -29,8 +31,8 @@ app.MapGet("/api/categories",([FromQuery]string searchProducts = "") =>
            }
       
   return  Results.Ok(categories); //200
-    });
-    // post /api/categories => create a Category
+    });*/
+ /*   // post /api/categories => create a Category------------comment
   app.MapPost("/api/categories", ([FromBody] Category CategoryData) => 
   {
     //Console.WriteLine($"{CategoryData}");
@@ -47,9 +49,9 @@ app.MapGet("/api/categories",([FromQuery]string searchProducts = "") =>
     }; 
     categories.Add(NewCategory);
     return Results.Created($"/api/categories/{NewCategory.CategoryId}",NewCategory);
-    });
+    });*/
 
-    //Delete /api/categories => Delete a Category
+   /* //Delete /api/categories => Delete a Category
   app.MapDelete("/api/categories/{IdCategory:guid}",(Guid IdCategory ) =>
       {
         var foundCategory = categories.FirstOrDefault(category => category.CategoryId == IdCategory);
@@ -58,8 +60,8 @@ app.MapGet("/api/categories",([FromQuery]string searchProducts = "") =>
          }
       categories.Remove(foundCategory);
       return Results.NoContent();
-      });
-    //Update /api/categories => Update a Category
+      });*/
+   /* //Update /api/categories => Update a Category
   app.MapPut("/api/categories/{IdCategory:guid}",(Guid IdCategory, [FromBody] Category CategoryData) =>
       {
         var foundCategory = categories.FirstOrDefault(category => category.CategoryId == IdCategory);
@@ -69,8 +71,8 @@ app.MapGet("/api/categories",([FromQuery]string searchProducts = "") =>
          if(CategoryData == null){
           return Results.BadRequest("Category is Data in Missing...!");
          }
-         /*foundCategory.Name = CategoryData.Name ?? foundCategory.Name;
-         foundCategory.Description = CategoryData.Description ?? foundCategory.Description;*/
+        ------------foundCategory.Name = CategoryData.Name ?? foundCategory.Name;
+         foundCategory.Description = CategoryData.Description ?? foundCategory.Description;-------------------
         if(!string.IsNullOrEmpty(CategoryData.Name)){
           if(foundCategory.Name.Length >= 2){
               foundCategory.Name = CategoryData.Name;
@@ -82,60 +84,6 @@ app.MapGet("/api/categories",([FromQuery]string searchProducts = "") =>
           foundCategory.Description = CategoryData.Description;
           }
         return Results.NoContent();
-      });
-app.Run();
+      });*/
 
-
-public record Category
-{
-  public Guid CategoryId { get; set;}
-  public string Name {get; set;}
-  public string Description {get; set;} = string.Empty;
-  public DateTime CreatedAt {get; set;}
-};
-
-
-
-
-
-
-
-// app.MapGet("/hello",() =>
-//     {
-// var response =  new { Message = "MapGat single Method", success= true};
-                      //html create
-//    return  Results.Content("<h1>Hello World!</h1>", "text/html") ; //200
-//      });
-
-//      app.MapPost("/hello", () =>{
-//           return  Results.Created();   // new create......... 201
-//      });
-
-//      app.MapPut("/hello", () =>{
-//         return Results.NoContent();//204 
-//      });
-
-//      app.MapDelete("/hello", () =>{
-//            return Results.NoContent(); //204
-//      });
-
-// app.MapPut("/hello",() =>
-//     {
-//   var response =  new { Message = "MapPut single Method", success= true};
-//    return response;
-//      });
-
-// app.MapPost("/hello",() =>
-//     {
-//   var response =  new { Message = "Map Post single Method", success= true};
-//    return response;
-//      });
-
-
-
-//   app.MapDelete("/hello",() =>{
-//     var response = new { message = "Map Delete json Method",success = true};
-//     return response;
-//   });
-
-
+ 
