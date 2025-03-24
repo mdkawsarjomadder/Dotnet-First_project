@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using asp_net_ecommerce_web_api.DTOs;
 using asp_net_ecommerce_web_api.Models;
 using Microsoft.AspNetCore.Mvc;
 namespace asp_net_ecommerce_web_api.contrallers
@@ -15,17 +16,23 @@ namespace asp_net_ecommerce_web_api.contrallers
    //GET:/api/categories => Read categories
    [HttpGet]
    public IActionResult GetCategories([FromQuery]string searchProducts = ""){
-        if( !String.IsNullOrEmpty(searchProducts)){
+        /*if( !String.IsNullOrEmpty(searchProducts)){
               Console.WriteLine($"{searchProducts}");
       var searchCategories = categories.Where( c => c.Name.Contains(searchProducts, StringComparison.OrdinalIgnoreCase)).ToList();
       return Ok(searchCategories);        
-           }
+           }*/
+     var categoryList = categories.Select(c => new categoryReadDto{
+        CategoryId = c.CategoryId,
+        Name = c.Name,
+        Description = c.Description,
+        CreatedAt = c.CreatedAt,
+      }).ToList();
       
-  return Ok(categories); //200
+  return Ok(categoryList); //200
    }
       //POST:/api/categories => Create a category
    [HttpPost]
-   public IActionResult CreateCategory([FromBody] Category CategoryData){
+   public IActionResult CreateCategory([FromBody] createCategoryDTOs  CategoryData){
         //Console.WriteLine($"{CategoryData}");
     
     if(string.IsNullOrEmpty(CategoryData.Name)){
@@ -43,12 +50,18 @@ namespace asp_net_ecommerce_web_api.contrallers
         CreatedAt = DateTime.UtcNow
     }; 
     categories.Add(NewCategory);
-    return Created($"/api/categories/{NewCategory.CategoryId}",NewCategory);
+    var CategoryReadDto = new categoryReadDto{
+      CategoryId = NewCategory.CategoryId,
+      Name = NewCategory.Name,
+      Description = NewCategory.Description,
+      CreatedAt = NewCategory.CreatedAt,
+    };
+    return Created($"/api/categories/{NewCategory.CategoryId}",CategoryReadDto);
   
    }
    //PUT:/api/categories/{categoryId } => The category in update.......
    [HttpPut("{IdCategory:guid}")]
-   public IActionResult UpdateIsCategoryById(Guid IdCategory, [FromBody] Category CategoryData){
+   public IActionResult UpdateIsCategoryById(Guid IdCategory, [FromBody] categoryInUpdateDTOs CategoryData){
          {
           var foundCategory = categories.FirstOrDefault(category => category.CategoryId == IdCategory);
          if(foundCategory == null){
