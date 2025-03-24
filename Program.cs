@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//add services to the contralller..............
-builder.Services.AddControllers();  //step number one.............
+//add services to the contralller..............!
+builder.Services.AddControllers();  //step number one.............!
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -20,6 +20,11 @@ app.UseHttpsRedirection();
 app.MapGet("/", () =>"API single Method");
 app.MapControllers();
 app.Run();
+
+
+
+
+
 /*//GET /api/categories => read Category
   app.MapGet("/api/categories",() =>
     {
